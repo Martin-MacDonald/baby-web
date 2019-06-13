@@ -12,11 +12,6 @@ code {
     monospace;
 }
 
-fieldset {
-  border: 0;
-  margin: 0;
-}
-
 .container {
   padding: 10px;
   min-height: 100vh;

@@ -3,10 +3,14 @@ import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset';
 import { setContext } from 'apollo-link-context';
 import { ApolloProvider } from 'react-apollo';
 import { Router } from '@reach/router';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faBaby } from '@fortawesome/free-solid-svg-icons'
 
 import AppContext from './context/appContext';
 import appReducer, { initialState } from './context/appReducer';
 import Login from './views/Login';
+
+library.add(faBaby);
 
 const httpLink = new HttpLink({ uri: 'https://blooming-badlands-62833.herokuapp.com/' });
 const authLink = setContext(async (req, { headers }) => {

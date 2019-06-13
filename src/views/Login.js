@@ -3,17 +3,28 @@ import { css, jsx } from '@emotion/core'
 import { useState } from 'react';
 import { withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import Input from '../components/Input';
 import SubmitButton from '../components/SubmitButton';
 
-const formStyle = css`
+const loginStyle = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  fieldset {
-    margin-bottom: 10px;
+  background: #CABAC8;
+  svg {
+    &.userIcon {
+      font-size: 50px;
+      margin-bottom: 20px;
+      color: black;
+    }
+  }
+  form {
+    input:not(last-of-type) {
+      margin-bottom: 15px;
+    }
   }
 `;
 
@@ -46,33 +57,38 @@ const Login = ({ client }) => {
   };
 
   return (
-    <form
+    <section
+      css={loginStyle}
       className='container'
-      css={formStyle}
-      onSubmit={e => {
-        e.preventDefault();
-        onLogin();
-      }}
     >
-      <Input
-        title='Email'
-        type='text'
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-        disabled={loading}
-      />
-      <Input
-        title='Password'
-        type='text'
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-        disabled={loading}
-      />
-      <SubmitButton
-        value={loading ? 'Loading...' : 'Login'}
-        disabled={loading}
-      />
-    </form>
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          onLogin();
+        }}
+      >
+        <Input
+          title='Email'
+          type='email'
+          placeholder='Email'
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          disabled={loading}
+        />
+        <Input
+          title='Password'
+          type='password'
+          placeholder='Password'
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          disabled={loading}
+        />
+        <SubmitButton
+          text={loading ? <FontAwesomeIcon icon='baby' /> : 'Login'}
+          disabled={loading}
+        />
+      </form>
+    </section>
   );
 };
 
