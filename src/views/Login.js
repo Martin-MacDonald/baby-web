@@ -50,7 +50,6 @@ const Login = ({ client, navigate }) => {
       });
       const { token } = res.data.login;
       localStorage.setItem('token', token);
-      console.log('set token');
       navigate('home');
     } catch (err) {
       console.log(err)

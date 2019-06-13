@@ -14,7 +14,7 @@ import Home from './views/Home';
 
 library.add(faBaby);
 
-const uri = process.env.NODE_URL || 'http://localhost:4000';
+const uri = process.env.REACT_NODE_URL || 'http://localhost:4000';
 const httpLink = new HttpLink({ uri });
 const authLink = setContext((req, { headers }) => {
   const token = localStorage.getItem('token');
