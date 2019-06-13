@@ -9,15 +9,17 @@ import { faBaby } from '@fortawesome/free-solid-svg-icons'
 import AppContext from './context/appContext';
 import appReducer, { initialState } from './context/appReducer';
 import Login from './views/Login';
+import Home from './views/Home';
 
 library.add(faBaby);
 
-const httpLink = new HttpLink({ uri: 'https://blooming-badlands-62833.herokuapp.com/' });
+const uri = process.env.NODE_URL || 'http://localhost:4000';
+const httpLink = new HttpLink({ uri });
 const authLink = setContext(async (req, { headers }) => {
   const token = await localStorage.getItem('token');
   return {
-    ...headers,
     headers: {
+      ...headers,
       authorization: token ? `Bearer ${token}` : null,
     },
   };
@@ -34,7 +36,8 @@ const App = () => {
     <ApolloProvider client={client}>
       <AppContext.Provider value={{ state, dispatch }}>
         <Router>
-          <Login path="/" />
+          <Login path='/' />
+          <Home path='/home' />
         </Router>
       </AppContext.Provider>
     </ApolloProvider>
