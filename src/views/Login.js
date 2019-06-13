@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -28,12 +28,6 @@ const loginStyle = css`
   }
 `;
 
-const CHECK_LOGIN_QUERY = gql`
-  query($token: String!) {
-    checkLogin(token: $token)
-  }
-`;
-
 const LOGIN_QUERY = gql`
   query($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -46,23 +40,6 @@ const Login = ({ client, navigate }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  
-  useEffect(() => {
-    (async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const res = await client.query({
-          query: CHECK_LOGIN_QUERY,
-          variables: { token },
-        });
-        if (res.data.checkLogin) {
-          navigate('home');
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  });
 
   const onLogin = async () => {
     try {
@@ -73,6 +50,7 @@ const Login = ({ client, navigate }) => {
       });
       const { token } = res.data.login;
       localStorage.setItem('token', token);
+      console.log('set token');
       navigate('home');
     } catch (err) {
       console.log(err)

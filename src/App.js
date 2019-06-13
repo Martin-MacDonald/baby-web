@@ -1,8 +1,9 @@
 import React, { useReducer } from 'react';
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset';
 import { setContext } from 'apollo-link-context';
-import { ApolloProvider } from 'react-apollo';
-import { Router } from '@reach/router';
+import { ApolloProvider, Query } from 'react-apollo';
+import gql from 'graphql-tag';
+import { Router, Redirect } from '@reach/router';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBaby } from '@fortawesome/free-solid-svg-icons'
 
@@ -15,8 +16,8 @@ library.add(faBaby);
 
 const uri = process.env.NODE_URL || 'http://localhost:4000';
 const httpLink = new HttpLink({ uri });
-const authLink = setContext(async (req, { headers }) => {
-  const token = await localStorage.getItem('token');
+const authLink = setContext((req, { headers }) => {
+  const token = localStorage.getItem('token');
   return {
     headers: {
       ...headers,
@@ -30,6 +31,25 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const CHECK_LOGIN_QUERY = gql`
+  query {
+    checkLogin
+  }
+`;
+
+const AuthRoute = ({ component: Component, ...rest }) => (
+  <Query query={CHECK_LOGIN_QUERY}>
+    {({ loading, error, data }) => {
+      if (loading) return "Loading...";
+      if (error) return `Error! ${error.message}`;
+      if (!data.checkLogin) return <Redirect noThrow to='/' />
+      return (
+        <Component {...rest} />
+      );
+    }}
+  </Query>
+);
+
 const App = () => {
   const [state, dispatch] = useReducer(appReducer, initialState);
   return (
@@ -37,7 +57,7 @@ const App = () => {
       <AppContext.Provider value={{ state, dispatch }}>
         <Router>
           <Login path='/' />
-          <Home path='/home' />
+          <AuthRoute component={Home} path='/home' />
         </Router>
       </AppContext.Provider>
     </ApolloProvider>
