@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { ApolloClient, HttpLink, InMemoryCache } from 'apollo-client-preset';
 import { setContext } from 'apollo-link-context';
 import { ApolloProvider, Query } from 'react-apollo';
@@ -13,6 +13,7 @@ import Loading from './views/Loading';
 import Login from './views/Login';
 import Home from './views/Home';
 import AuthContainer from './views/AuthContainer';
+import { SET_USER } from './context/types';
 
 library.add(faBaby);
 
@@ -60,6 +61,9 @@ const AuthRoute = ({ component: Component, ...rest }) => (
 
 const App = () => {
   const [state, dispatch] = useReducer(appReducer, initialState);
+  useEffect(() => {
+    dispatch({ type: SET_USER, payload: JSON.parse(localStorage.getItem('user')) })
+  });
   return (
     <ApolloProvider client={client}>
       <AppContext.Provider value={{ state, dispatch }}>

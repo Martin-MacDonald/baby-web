@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import appContext from '../context/appContext';
 
 const Home = () => {
+  const { state } = useContext(appContext);
   return (
-    <div>Home</div>
+    <div>{state.user.name.firstName}</div>
   );
 };
 
