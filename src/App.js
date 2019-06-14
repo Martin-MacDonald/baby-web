@@ -9,6 +9,7 @@ import { faBaby } from '@fortawesome/free-solid-svg-icons';
 
 import AppContext from './context/appContext';
 import appReducer, { initialState } from './context/appReducer';
+import Loading from './views/Loading';
 import Login from './views/Login';
 import Home from './views/Home';
 import AuthContainer from './views/AuthContainer';
@@ -41,7 +42,11 @@ const CHECK_LOGIN_QUERY = gql`
 const AuthRoute = ({ component: Component, ...rest }) => (
   <Query query={CHECK_LOGIN_QUERY}>
     {({ loading, error, data }) => {
-      if (loading) return "Loading...";
+      if (loading) return (
+        <AuthContainer>
+          <Loading />
+        </AuthContainer>
+      );
       if (error) return `Error! ${error.message}`;
       if (!data.checkLogin) return <Redirect noThrow to='/' />
       return (
