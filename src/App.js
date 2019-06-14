@@ -5,12 +5,13 @@ import { ApolloProvider, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Router, Redirect } from '@reach/router';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBaby } from '@fortawesome/free-solid-svg-icons'
+import { faBaby } from '@fortawesome/free-solid-svg-icons';
 
 import AppContext from './context/appContext';
 import appReducer, { initialState } from './context/appReducer';
 import Login from './views/Login';
 import Home from './views/Home';
+import AuthContainer from './views/AuthContainer';
 
 library.add(faBaby);
 
@@ -44,7 +45,9 @@ const AuthRoute = ({ component: Component, ...rest }) => (
       if (error) return `Error! ${error.message}`;
       if (!data.checkLogin) return <Redirect noThrow to='/' />
       return (
-        <Component {...rest} />
+        <AuthContainer>
+          <Component {...rest} />
+        </AuthContainer>
       );
     }}
   </Query>

@@ -3,28 +3,16 @@ import { css, jsx } from '@emotion/core'
 import { useState } from 'react';
 import { withApollo } from 'react-apollo';
 import gql from 'graphql-tag';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Container, Row, Col, Form } from 'react-bootstrap';
 
-import Input from '../components/Input';
 import SubmitButton from '../components/SubmitButton';
 
-const loginStyle = css`
+const containerStyle = css`
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background: #CABAC8;
-  svg {
-    &.userIcon {
-      font-size: 50px;
-      margin-bottom: 20px;
-      color: black;
-    }
-  }
-  form {
-    input:not(last-of-type) {
-      margin-bottom: 15px;
-    }
+  .row {
+    flex-grow: 1;
   }
 `;
 
@@ -59,38 +47,43 @@ const Login = ({ client, navigate }) => {
   };
 
   return (
-    <section
-      css={loginStyle}
-      className='container'
-    >
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-          onLogin();
-        }}
-      >
-        <Input
-          title='Email'
-          type='email'
-          placeholder='Email'
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          disabled={loading}
-        />
-        <Input
-          title='Password'
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          disabled={loading}
-        />
-        <SubmitButton
-          text={loading ? <FontAwesomeIcon icon='baby' /> : 'Login'}
-          disabled={loading}
-        />
-      </form>
-    </section>
+    <Container css={containerStyle}>
+      <Row>
+        <Col>
+          <Form
+            onSubmit={e => {
+              e.preventDefault();
+              onLogin();
+            }}
+          >
+            <Form.Group>
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type='email'
+                placeholder='Enter email'
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                disabled={loading}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type='password'
+                placeholder='Enter password'
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                disabled={loading}
+              />
+            </Form.Group>
+            <SubmitButton
+              text='Login'
+              disabled={loading}
+            />
+          </Form>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

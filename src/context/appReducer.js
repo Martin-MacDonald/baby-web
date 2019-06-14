@@ -1,7 +1,7 @@
 import { SET_USER } from './types';
 
 export const initialState = {
-  user: '',
+  user: {},
 };
 
 export default (state, action) => {

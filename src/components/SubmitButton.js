@@ -1,30 +1,26 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Button } from 'react-bootstrap';
 
 const buttonStyle = css`
-  cursor: pointer;
-  background-color: #81D6E3;
-  width: 100%;
-  color: white;
-  border-radius: 5px;
-  font-size: 20px;
-  border: none;
   svg {
-    font-size: 20px;
     animation: spin 2s linear infinite;
   }
   @keyframes spin { 100% { transform:rotate(360deg) } }
 `;
 
-const SubmitButton = ({ text, ...props }) => {
+const SubmitButton = ({ text, disabled, ...rest }) => {
   return (
-    <button
+    <Button
       css={buttonStyle}
+      block
       type="submit"
-      {...props}
+      disabled={disabled}
+      {...rest}
     >
-      {text}
-    </button>
+      {disabled ? <FontAwesomeIcon icon='baby' /> : text}
+    </Button>
   );
 };
 
