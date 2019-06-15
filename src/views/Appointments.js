@@ -13,7 +13,7 @@ import ActionButton from '../components/ActionButton';
 import AppointmentModal from '../components/AppointmentModal';
 
 
-const APPT_QUERY = gql`
+export const APPT_QUERY = gql`
   query {
     getAppointments {
       id
@@ -75,7 +75,7 @@ const Appointments = () => {
           return (
             <Tabber
               activeKey={activeTab}
-              onSelect={setActiveTab}
+              onSelect={(tab) => setActiveTab(tab)}
               tabs={['Upcoming', 'Passed']}
             >
               <Row>
