@@ -9,6 +9,8 @@ const containerStyle = css`
   flex-direction: column;
   .container {
     flex: 1;
+    margin-top: 15px;
+    margin-bottom: 15px;
   }
 `;
 

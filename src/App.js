@@ -12,6 +12,7 @@ import appReducer, { initialState } from './context/appReducer';
 import Loading from './views/Loading';
 import Login from './views/Login';
 import Home from './views/Home';
+import Appointments from './views/Appointments';
 import AuthContainer from './views/AuthContainer';
 import { SET_USER } from './context/types';
 
@@ -63,13 +64,14 @@ const App = () => {
   const [state, dispatch] = useReducer(appReducer, initialState);
   useEffect(() => {
     dispatch({ type: SET_USER, payload: JSON.parse(localStorage.getItem('user')) })
-  });
+  }, []);
   return (
     <ApolloProvider client={client}>
       <AppContext.Provider value={{ state, dispatch }}>
         <Router>
           <Login path='/' />
           <AuthRoute component={Home} path='/home' />
+          <AuthRoute component={Appointments} path='/appointments' />
         </Router>
       </AppContext.Provider>
     </ApolloProvider>
