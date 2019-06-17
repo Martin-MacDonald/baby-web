@@ -39,6 +39,12 @@ const modalStyles = css`
       }
     }
   }
+  .react-datepicker-popper {
+    transform: translate3d(0px, 17px, -10px);
+    .react-datepicker__month-container {
+      width: 230px;
+    }
+  }
 `;
 
 const AppointmentModal = ({ show, onHide, appointmentTypes, client }) => {
