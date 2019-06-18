@@ -7,7 +7,7 @@ import { Row, Col } from 'react-bootstrap';
 import moment from 'moment';
 import Loading from './Loading';
 import Tabber from '../components/Tabber';
-import CardItem from '../components/CardItem';
+import ApptCardItem from '../components/ApptCardItem';
 import parseDate from '../helpers/parseDate';
 import ActionButton from '../components/ActionButton';
 import AppointmentModal from '../components/AppointmentModal';
@@ -42,7 +42,7 @@ const Appointments = () => {
       .filter(appt => !parseDate(appt.date).isBefore(moment()))
       .sort((a, b) => parseDate(a.date) - parseDate(b.date))
       .map((appt, i) => (
-        <CardItem
+        <ApptCardItem
           key={i}
           title={parseDate(appt.date).format('DD/MM/YY')}
           subtitle={`${appt.location} - ${appt.appointmentType.type}`}
@@ -56,7 +56,7 @@ const Appointments = () => {
       .filter(appt => parseDate(appt.date).isBefore(moment()))
       .sort((a, b) => parseDate(b.date) - parseDate(a.date))
       .map((appt, i) => (
-        <CardItem
+        <ApptCardItem
           key={i}
           title={parseDate(appt.date).format('DD/MM/YY')}
           subtitle={`${appt.location} - ${appt.appointmentType.type}`}

@@ -5,7 +5,7 @@ import { ApolloProvider, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Router, Redirect } from '@reach/router';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBaby } from '@fortawesome/free-solid-svg-icons';
+import { faBaby, faBirthdayCake, faExchangeAlt } from '@fortawesome/free-solid-svg-icons';
 
 import AppContext from './context/appContext';
 import appReducer, { initialState } from './context/appReducer';
@@ -16,7 +16,7 @@ import Appointments from './views/Appointments';
 import AuthContainer from './views/AuthContainer';
 import { SET_USER } from './context/types';
 
-library.add(faBaby);
+library.add(faBaby, faBirthdayCake, faExchangeAlt);
 
 const uri = process.env.REACT_APP_API || 'http://localhost:4000';
 const httpLink = new HttpLink({ uri });
