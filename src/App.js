@@ -13,6 +13,9 @@ import Loading from './views/Loading';
 import Login from './views/Login';
 import Home from './views/Home';
 import Appointments from './views/Appointments';
+import Names from './views/Names';
+import ShoppingList from './views/ShoppingList';
+import ToDo from './views/ToDo';
 import AuthContainer from './views/AuthContainer';
 import { SET_USER } from './context/types';
 
@@ -72,6 +75,9 @@ const App = () => {
           <Login path='/' />
           <AuthRoute component={Home} path='/home' />
           <AuthRoute component={Appointments} path='/appointments' />
+          <AuthRoute component={Names} path='/names' />
+          <AuthRoute component={ShoppingList} path='/shoppinglist' />
+          <AuthRoute component={ToDo} path='/todo' />
         </Router>
       </AppContext.Provider>
     </ApolloProvider>
