@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
-import appContext from '../context/appContext';
+import React from 'react';
 import WelcomeCard from '../components/WelcomeCard';
 import CountdownCard from '../components/CountdownCard';
 import { Row, Col } from 'react-bootstrap';
 
 const Home = () => {
-  const { state } = useContext(appContext);
   return (
     <Row>
       <Col>

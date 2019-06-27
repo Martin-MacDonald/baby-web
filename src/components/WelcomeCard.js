@@ -15,7 +15,8 @@ const WelcomeCard = () => {
   const getGreeting = () => {
     switch (parentType) {
       case 'father': return "Hope you are ready!";
-      case 'mother': return "Martin loves you!"
+      case 'mother': return "Martin loves you!";
+      default: return "You are an unknown!";
     }
   };
   return (
